@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Krishna Properties – Buy & Rent</title>
+
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-stone-900/95 backdrop-blur border-b border-red-100 dark:border-stone-700">
+        <nav class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+
+            <a href="#home" class="leading-none">
+                <span class="text-2xl font-extrabold text-red-600">Krishna</span>
+                <span class="block text-[10px] tracking-[.3em] uppercase text-stone-500">Properties</span>
+            </a>
+
+            <div id="menu" class="hidden md:flex items-center gap-5 text-sm font-medium absolute md:static top-16 left-0 right-0 flex-col md:flex-row bg-white dark:bg-stone-900 md:bg-transparent p-4 md:p-0 border-b md:border-0 border-red-100 dark:border-stone-700">
+
+                <a href="#home" class="hover:text-red-600">Home</a>
+                <a href="#buy" class="hover:text-red-600">Buy</a>
+                <a href="#rent" class="hover:text-red-600">Rent</a>
+                <a href="#gallery" class="hover:text-red-600">Gallery</a>
+
+                <a href="#favs" class="hover:text-red-600">
+                    ❤ Favourites (<span id="favCount">0</span>)
+                </a>
+
+                <a href="#admin" id="adminLink" class="hover:text-red-600">⚙ Admin</a>
+
+                <button id="authBtn" class="btn !py-1.5">User Login</button>
+
+                <button id="theme" class="rounded-lg border border-stone-300 dark:border-stone-600 px-3 py-1.5" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+            </div>
+
+            <button id="burger" class="md:hidden text-2xl" aria-label="Menu">
+                ☰
+            </button>
+
+        </nav>
+    </header>
+
+    <!-- Home / Hero Section -->
+    <section id="home" class="relative text-white overflow-hidden bg-red-900">
+
+        <div id="slides" class="absolute inset-0"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-r from-red-950/80 via-red-900/50 to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 py-14 md:py-24">
+
+            <p class="text-xl md:text-3xl font-bold max-w-xl">
+                Flats, houses, villas & plots – buy or rent across Maharashtra.
+            </p>
+
+            <div class="mt-6 flex gap-3">
+                <a href="#buy" class="btn">Buy Property</a>
+
+                <a href="#rent" class="rounded-lg border border-white px-5 py-2 font-semibold hover:bg-white hover:text-red-700">
+                    Rent Property
+                </a>
+            </div>
+
+            <!-- Property Search Filters -->
+            <div class="mt-8 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-2xl p-4 shadow-xl">
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+
+                    <input id="loc" class="fld col-span-2" placeholder="📍 Location (Nashik, Pune…)">
+
+                    <select id="type" class="fld">
+                        <option value="">All types</option>
+                        <option>Flat</option>
+                        <option>House</option>
+                        <option>Villa</option>
+                        <option>Plot</option>
+                    </select>
+
+                    <select id="beds" class="fld">
+                        <option value="0">Any beds</option>
+                        <option value="1">1+ beds</option>
+                        <option value="2">2+ beds</option>
+                        <option value="3">3+ beds</option>
+                        <option value="4">4+ beds</option>
+                    </select>
+
+                    <select id="baths" class="fld">
+                        <option value="0">Any baths</option>
+                        <option value="1">1+ baths</option>
+                        <option value="2">2+ baths</option>
+                        <option value="3">3+ baths</option>
+                    </select>
+
+                </div>
+
+                <div class="flex flex-wrap justify-between items-center gap-3 mt-3">
+
+                    <button id="clear" class="text-sm text-red-600 underline">
+                        Reset filters
+                    </button>
+
+                    <select id="sort" class="fld !w-auto">
+                        <option value="new">Newest listings</option>
+                        <option value="asc">Price: low to high</option>
+                        <option value="desc">Price: high to low</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-10">
+
+        <div id="siteView" class="space-y-14">
+
+            <!-- Buy Properties Section -->
+            <section id="buy">
+
+                <div class="flex flex-wrap items-center justify-between gap-3">
+
+                    <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-3">
+                        Properties for Purchase
+                        <span id="cBuy" class="text-sm font-normal text-stone-500"></span>
+                    </h2>
+
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-stone-500">Budget (₹ Lakh)</span>
+
+                        <input id="bMin" type="number" min="0" class="fld !w-24" placeholder="Min">
+
+                        <span>–</span>
+
+                        <input id="bMax" type="number" min="0" class="fld !w-24" placeholder="Max">
+                    </div>
+
+                </div>
+
+                <div id="gBuy" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5"></div>
+
+            </section>
+
+            <!-- Rent Properties Section -->
+            <section id="rent">
+
+                <div class="flex flex-wrap items-center justify-between gap-3">
+
+                    <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-3">
+                        Properties for Rent
+                        <span id="cRent" class="text-sm font-normal text-stone-500"></span>
+                    </h2>
+
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-stone-500">Rent (₹ / month)</span>
+
+                        <input id="rMin" type="number" min="0" class="fld !w-24" placeholder="Min">
+
+                        <span>–</span>
+
+                        <input id="rMax" type="number" min="0" class="fld !w-24" placeholder="Max">
+                    </div>
+
+                </div>
+
+                <div id="gRent" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5"></div>
+
+            </section>
+
+            <!-- Photo Gallery Section -->
+            <section id="gallery">
+
+                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-3">
+                    Photo Gallery
+                </h2>
+
+                <div id="gTabs" class="flex gap-2 mt-4"></div>
+
+                <div id="gGrid" class="columns-2 md:columns-3 gap-3 mt-5"></div>
+
+            </section>
+
+            <!-- Favourites Section -->
+            <section id="favs">
+
+                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-3">
+                    My Favourites
+                </h2>
+
+                <div id="gFav" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5"></div>
+
+            </section>
+
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminView" class="hidden">
+
+            <section id="admin">
+
+                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-3">
+                    Admin Panel – Add Property & Photos
+                </h2>
+
+                <!-- Admin Login -->
+                <div id="aGate" class="mt-5 rounded-2xl bg-white dark:bg-stone-800 border border-red-100 dark:border-stone-700 p-8 text-center">
+
+                    <p class="text-4xl">🔐</p>
+
+                    <p class="mt-2 font-semibold">Admin login required</p>
+
+                    <p class="text-sm text-stone-500 mt-1">
+                        Login as admin to add properties and photos.
+                    </p>
+
+                    <button id="aGoBtn" class="btn mt-4">
+                        Admin Login
+                    </button>
+
+                </div>
+
+                <!-- Admin Dashboard -->
+                <div id="aPanel" class="hidden">
+
+                    <div id="aStats" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5"></div>
+
+                    <!-- Add Property Form -->
+                    <div class="mt-5 rounded-2xl bg-white dark:bg-stone-800 border border-red-100 dark:border-stone-700 p-5">
+
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+                            <input id="aT" class="fld" placeholder="Title">
+
+                            <input id="aL" class="fld" placeholder="Location">
+
+                            <select id="aTy" class="fld">
+                                <option>Flat</option>
+                                <option>House</option>
+                                <option>Villa</option>
+                                <option>Plot</option>
+                            </select>
+
+                            <select id="aM" class="fld">
+                                <option value="buy">For Purchase</option>
+                                <option value="rent">For Rent</option>
+                            </select>
+
+                            <input id="aP" type="number" class="fld" placeholder="Price ₹ (rent: per month)">
+
+                            <input id="aB" type="number" class="fld" placeholder="Bedrooms">
+
+                            <input id="aBa" type="number" class="fld" placeholder="Bathrooms">
+
+                            <input id="aA" type="number" class="fld" placeholder="Area (sq ft)">
+
+                        </div>
+
+                        <textarea id="aD" rows="2" class="fld mt-3" placeholder="Description"></textarea>
+
+                        <label class="block mt-3 text-sm font-medium">
+                            Property photos (multiple)
+                        </label>
+
+                        <input id="aF" type="file" accept="image/*" multiple class="fld">
+
+                        <div id="aPrev" class="flex gap-2 flex-wrap mt-2"></div>
+
+                        <div class="mt-4 flex items-center gap-3">
+
+                            <button id="aAdd" class="btn">
+                                Add Property
+                            </button>
+
+                            <span id="aMsg" class="text-sm"></span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- All Listings -->
+                    <h3 class="mt-8 mb-3 font-semibold">
+                        All listings
+                    </h3>
+
+                    <div id="aList" class="space-y-2"></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-red-100 dark:border-stone-700 py-8 text-center text-sm text-stone-500">
+        © 2026 Krishna Properties · Nashik, Maharashtra
+    </footer>
+
+    <!-- Property Details Modal -->
+    <div id="pm" class="hidden fixed inset-0 z-50 bg-black/60 p-3 md:p-8 overflow-y-auto">
+
+        <div class="max-w-3xl mx-auto bg-white dark:bg-stone-800 rounded-2xl overflow-hidden shadow-2xl">
+
+            <div class="relative">
+
+                <img id="mainImg" class="w-full aspect-[16/9] object-cover" alt="Property">
+
+                <button id="close" class="absolute top-3 right-3 bg-white/90 text-stone-900 rounded-full w-9 h-9 text-lg" aria-label="Close">
+                    ✕
+                </button>
+
+            </div>
+
+            <div id="thumbs" class="flex gap-2 p-3 overflow-x-auto"></div>
+
+            <div class="px-5 pb-6">
+
+                <div class="flex justify-between items-start gap-3">
+
+                    <div>
+                        <h3 id="mT" class="text-xl font-bold"></h3>
+                        <p id="mL" class="text-sm text-stone-500"></p>
+                    </div>
+
+                    <div class="text-right">
+
+                        <div id="mP" class="text-xl font-extrabold text-red-600"></div>
+
+                        <button id="mF" class="mt-1 text-sm"></button>
+
+                    </div>
+
+                </div>
+
+                <p id="mD" class="mt-3 text-stone-600 dark:text-stone-300"></p>
+
+                <dl id="mS" class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm"></dl>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- User Login Modal -->
+    <div id="am" class="hidden fixed inset-0 z-50 bg-black/60 p-4 flex items-center justify-center">
+
+        <div class="w-full max-w-sm bg-white dark:bg-stone-800 rounded-2xl p-6 shadow-2xl">
+
+            <div class="flex justify-between items-center">
+
+                <h3 id="uTitle" class="text-xl font-bold text-red-600">
+                    Krishna User Login
+                </h3>
+
+                <button id="aClose" aria-label="Close">
+                    ✕
+                </button>
+
+            </div>
+
+            <div class="space-y-3 mt-5">
+
+                <label class="block text-sm font-semibold">
+                    Email / User ID
+                </label>
+
+                <input id="uE" class="fld" autocomplete="username" placeholder="Email">
+
+                <label class="block text-sm font-semibold">
+                    Password
+                </label>
+
+                <input id="uP" type="password" class="fld" autocomplete="current-password" placeholder="Password">
+
+            </div>
+
+            <p id="uMsg" class="text-sm text-red-600 mt-2 min-h-[1.25rem]"></p>
+
+            <button id="uGo" class="btn w-full mt-1">
+                Login
+            </button>
+
+            <p class="text-xs text-stone-500 mt-3">
+                Demo User: user@krishna.com / user123<br>
+                Admin: admin@krishna.com / admin123<br>
+                <span class="text-stone-400">
+                    Demo credentials are auto-filled for this project.
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Image Lightbox -->
+    <div id="lb" class="hidden fixed inset-0 z-[60] bg-black/85 flex items-center justify-center p-4 cursor-zoom-out">
+
+        <img id="lbImg" class="max-h-full max-w-full rounded-xl" alt="">
+
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
