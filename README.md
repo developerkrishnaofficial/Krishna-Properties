@@ -60,30 +60,6 @@ Krishna-Properties/
     └── gallery images
 ```
 
-## 🚀 Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-```
-
-### 2. Open Project Folder
-
-```bash
-cd Krishna-Properties
-```
-
-### 3. Run the Website
-
-- Open the project in Visual Studio Code.
-- Install the Live Server extension.
-- Right-click on `index.html`.
-- Select **Open with Live Server**.
-
-You can also open `index.html` directly in your browser.
-
-> **Note:** Internet access is required to load Tailwind CSS through its CDN.
 
 ## 🔐 Admin Demo Credentials
 
@@ -113,9 +89,7 @@ Currently, it is a frontend-only project without a backend server or database.
 - Online property enquiry system.
 - Real-time property updates.
 
-## 👨‍💻 Developer
 
-**Krishna**
 
 ---
 
